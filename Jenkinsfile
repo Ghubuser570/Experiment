@@ -12,7 +12,7 @@
                     // This command tells Jenkins to pull your project files.
                     // Replace 'github-username-pat' with your actual credential ID in Jenkins.
                     // Replace the URL with your actual GitHub repository URL.
-                    git branch: 'main', credentialsId: 'Ghubuser570_Pass', url: 'https://github.com/Ghubuser570/Experiment.git'
+                    git branch: 'main', credentialsId: 'Ghubuser570_PAT', url: 'https://github.com/Ghubuser570/Experiment.git'
                 }
             }
 
