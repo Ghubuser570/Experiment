@@ -9,9 +9,7 @@
             // Stage 1: Get the latest code from your online storage (GitHub).
             stage('Checkout Code') {
                 steps {
-                    // This command tells Jenkins to pull your project files.
-                    // Replace 'github-username-pat' with your actual credential ID in Jenkins.
-                    // Replace the URL with your actual GitHub repository URL.
+                    // Use the PAT credential for cloning/fetching.
                     git branch: 'main', credentialsId: 'Ghubuser570_PAT', url: 'https://github.com/Ghubuser570/Experiment.git'
                 }
             }
@@ -56,9 +54,8 @@
                     script {
                         echo "Adding test report to version control..."
                         // Tell Git who is making this automated commit.
-                        // This is crucial for Jenkins to be able to commit.
                         bat 'git config user.email "jenkins@example.com"' // You can use any valid email
-                        bat 'git config user.name "Shashank"' // You can use any name you like
+                        bat 'git config user.name "Jenkins Automated Build"' // You can use any name you like
                         
                         // Tell Git (the tool that manages your code changes) to include the new 'test_report.txt' file.
                         bat 'git add test_report.txt'
@@ -70,7 +67,7 @@
 
                         echo "Pushing test report to GitHub..."
                         // Send your updated project (with the new report) back to your online storage.
-                        // This uses the same credential Jenkins uses to get the code.
+                        // This uses the the PAT credential for pushing.
                         bat 'git push origin main'
                         echo "Test report published to GitHub."
                     }
