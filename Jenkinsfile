@@ -12,7 +12,7 @@ pipeline {
                 // This command tells Jenkins to pull your project files.
                 // Replace 'github-username-pat' with your actual credential ID in Jenkins.
                 // Replace the URL with your actual GitHub repository URL.
-                git branch: 'main', credentialsId: 'github-username-pat', url: 'https://github.com/Ghubuser570/jenkins-python-ci-demo.git'
+                git branch: 'main', credentialsId: 'Ghubuser570_Pass', url: 'https://github.com/Ghubuser570/Experiment'
             }
         }
 
