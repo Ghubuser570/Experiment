@@ -71,9 +71,8 @@ pipeline {
                     // 'Ghubuser570_pat' is the ID of your Secret Text credential in Jenkins.
                     withCredentials([usernamePassword(credentialsId: 'Ghubuser570_PAT', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                         // Create a temporary batch script that simply echoes the PAT.
-                        // Git will execute this script when it needs the password (because GIT_ASKPASS is set).
                         bat 'echo %GIT_PASSWORD% > git_askpass_script.bat'
-                        bat 'echo exit 0 >> git_askpass_script.bat' # Ensure the script exits cleanly
+                        bat 'echo exit 0 >> git_askpass_script.bat' // Ensure the script exits cleanly
 
                         // Set GIT_ASKPASS environment variable to point to our temporary script.
                         // Set GIT_USERNAME to your GitHub username (can be anything for PAT, but good practice).
