@@ -69,11 +69,19 @@ pipeline {
                     echo "Pushing test report to GitHub..."
                     // Use withCredentials to securely provide the PAT for the git push.
                     // 'Ghubuser570_pat' is the ID of your Secret Text credential in Jenkins.
-                    // We'll pass your GitHub username explicitly for the push URL.
-                    withCredentials([usernamePassword(credentialsId: 'Ghubuser570_PAT', usernameVariable: 'GIT_USERNAME_VAR', passwordVariable: 'GIT_PASSWORD_VAR')]) {
-                        // The 'GIT_USERNAME_VAR' will be empty (as it's a PAT), but we need a username for the URL.
-                        // We'll use your actual GitHub username directly in the URL for clarity and reliability.
-                        bat 'git push https://Ghubuser570:${GIT_PASSWORD_VAR}@github.com/Ghubuser570/Experiment.git main'
+                    withCredentials([usernamePassword(credentialsId: 'Ghubuser570_PAT', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                        // Create a temporary batch script that simply echoes the PAT.
+                        // Git will execute this script when it needs the password (because GIT_ASKPASS is set).
+                        bat 'echo %GIT_PASSWORD% > git_askpass_script.bat'
+                        bat 'echo exit 0 >> git_askpass_script.bat' # Ensure the script exits cleanly
+
+                        // Set GIT_ASKPASS environment variable to point to our temporary script.
+                        // Set GIT_USERNAME to your GitHub username (can be anything for PAT, but good practice).
+                        // Then, perform the push.
+                        bat 'set GIT_ASKPASS=%CD%\\git_askpass_script.bat && set GIT_USERNAME=Ghubuser570 && git push origin main'
+
+                        // Clean up the temporary script immediately after the push.
+                        bat 'del git_askpass_script.bat'
                     }
                     echo "Test report published to GitHub."
                 }
