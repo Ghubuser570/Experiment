@@ -55,6 +55,11 @@
                 steps {
                     script {
                         echo "Adding test report to version control..."
+                        // Tell Git who is making this automated commit.
+                        // This is crucial for Jenkins to be able to commit.
+                        bat 'git config user.email "jenkins@example.com"' // You can use any valid email
+                        bat 'git config user.name "Shashank"' // You can use any name you like
+                        
                         // Tell Git (the tool that manages your code changes) to include the new 'test_report.txt' file.
                         bat 'git add test_report.txt'
 
